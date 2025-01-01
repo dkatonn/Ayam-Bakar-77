@@ -1,6 +1,9 @@
 <?php
     session_start();
-    require '../database/DBController.php';
+    $con = mysqli_connect("localhost", "root", "", "ayam-bakar-77");
+    if (!$con) {
+        die("Koneksi gagal: " . mysqli_connect_error());
+    }
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +52,7 @@
                     $username = trim(htmlspecialchars($_POST['username']));
                     $password = trim(htmlspecialchars($_POST['password']));
         
-                    $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE username=?");
+                    $stmt = mysqli_prepare($con, "SELECT * FROM users WHERE username=?");
                     mysqli_stmt_bind_param($stmt, "s", $username);
                     mysqli_stmt_execute($stmt);
                     $result = mysqli_stmt_get_result($stmt);
@@ -78,7 +81,7 @@
                             <?php
                         }
                     } else {
-                        echo "Error: ". mysqli_error($conn);
+                        echo "Error: ". mysqli_error($con);
                     }
                 }
             ?>

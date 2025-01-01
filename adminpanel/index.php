@@ -2,10 +2,12 @@
     require("session.php");
     require "../database/DBController.php";
 
-    $queryKategori = mysqli_query($conn, "SELECT * FROM kategori");
+    $con = mysqli_connect("localhost", "root", "", "ayam-bakar-77");
+    
+    $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
     $jumlahKategori = mysqli_num_rows($queryKategori);
 
-    $queryProduk = mysqli_query($conn, "SELECT * FROM produk");
+    $queryProduk = mysqli_query($con, "SELECT * FROM produk");
     $jumlahProduk = mysqli_num_rows($queryProduk);
 ?>
 <!DOCTYPE html>

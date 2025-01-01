@@ -20,7 +20,7 @@ $in_cart = $Cart->getCartId($product->getData('cart'));
     <div class="container">
         <h4 class="font-rubik font-size-20">Semua Kategori</h4>
         <div id="filters" class="button-group text-right font-baloo font-size-16">
-            <button class="btn is-checked" data-filter="*">All Brand</button>
+            <button class="btn is-checked" data-filter="*">Semua makanan</button>
             <?php
                 array_map(function ($brand){
                     printf('<button class="btn" data-filter=".%s">%s</button>', $brand, $brand);
@@ -44,7 +44,7 @@ $in_cart = $Cart->getCartId($product->getData('cart'));
                                 <span><i class="far fa-star"></i></span>
                             </div>
                             <div class="price py-2">
-                                <span>$<?php echo $item['item_price'] ?? 0 ?></span>
+                                <span>Rp.<?php echo $item['item_price'] ?? 0 ?></span>
                             </div>
                             <form method="post">
                                 <input type="hidden" name="item_id" value="<?php echo $item['item_id'] ?? '1'; ?>">

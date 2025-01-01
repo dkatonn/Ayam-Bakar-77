@@ -2,7 +2,9 @@
     require("session.php");
     require "../database/DBController.php";
 
-    $queryKategori = mysqli_query($conn, "SELECT * FROM kategori");
+    $con = mysqli_connect("localhost", "root", "", "ayam-bakar-77");
+
+    $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
     $jumlahKategori = mysqli_num_rows($queryKategori);
 
 ?>
@@ -52,7 +54,7 @@
                 if(isset($_POST['simpan_kategori'])){
                     $kategori = htmlspecialchars($_POST['kategori']);
 
-                    $queryExist = mysqli_query($conn, "SELECT nama FROM kategori WHERE nama='$kategori'");
+                    $queryExist = mysqli_query($con, "SELECT nama FROM kategori WHERE nama='$kategori'");
                     $jumlahDataKategoriBaru = mysqli_num_rows($queryExist);
                     
                     if($jumlahDataKategoriBaru > 0){
@@ -63,7 +65,7 @@
                         <?php
                     }
                     else{
-                        $querySimpan = mysqli_query($conn, "INSERT INTO kategori (nama) VALUES ('$kategori')");
+                        $querySimpan = mysqli_query($con, "INSERT INTO kategori (nama) VALUES ('$kategori')");
                         
                         if($querySimpan){
                             ?>
@@ -75,7 +77,7 @@
                             <?php
                         }
                         else{
-                            echo mysqli_error($conn);
+                            echo mysqli_error($con);
                         }
                     }
                 }

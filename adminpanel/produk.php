@@ -2,10 +2,12 @@
     require("session.php");
     require "../database/DBController.php";
 
-    $query = mysqli_query($conn, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.kategori_id=b.id");
+    $con = mysqli_connect("localhost", "root", "", "ayam-bakar-77");
+    
+    $query = mysqli_query($con, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.kategori_id=b.id");
     $jumlahProduk = mysqli_num_rows($query);
 
-    $queryKategori = mysqli_query($conn, "SELECT * FROM kategori");
+    $queryKategori = mysqli_query($con, "SELECT * FROM kategori");
 
     function generateRandomString($lenght = 10){
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -143,7 +145,7 @@
                             }
                         }
 
-                        $queryTambah = mysqli_query($conn, "INSERT INTO produk(kategori_id, nama, harga, foto, detail, ketersediaan_stok) VALUES('$kategori', '$nama', '$harga', '$new_name', '$detail', '$ketersediaan_stok') ");
+                        $queryTambah = mysqli_query($con, "INSERT INTO produk(kategori_id, nama, harga, foto, detail, ketersediaan_stok) VALUES('$kategori', '$nama', '$harga', '$new_name', '$detail', '$ketersediaan_stok') ");
 
                         if($queryTambah){
             ?>               
@@ -155,7 +157,7 @@
             <?php                 
                         }
                         else{
-                            echo mysqli_error($conn);
+                            echo mysqli_error($con);
                         }
                     }
                 }

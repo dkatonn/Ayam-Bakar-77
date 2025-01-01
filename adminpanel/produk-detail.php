@@ -4,10 +4,12 @@
 
     $id = $_GET['p'];
 
-    $query = mysqli_query($conn, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.kategori_id =b.id WHERE a.id='$id'");
+    $con = mysqli_connect("localhost", "root", "", "ayam-bakar-77");
+
+    $query = mysqli_query($con, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.kategori_id =b.id WHERE a.id='$id'");
     $data = mysqli_fetch_array($query);
 
-    $queryKategori = mysqli_query($conn, "SELECT * FROM kategori WHERE id!='$data[kategori_id]'");
+    $queryKategori = mysqli_query($con, "SELECT * FROM kategori WHERE id!='$data[kategori_id]'");
 
     function generateRandomString($lenght = 10){
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -124,7 +126,7 @@
             <?php            
                     }
                     else{
-                        $queryUpdate = mysqli_query($conn, "UPDATE produk SET kategori_id='$kategori', nama='$nama', harga='$harga', detail='$detail', ketersediaan_stok='$ketersediaan_stok' WHERE id=$id");
+                        $queryUpdate = mysqli_query($con, "UPDATE produk SET kategori_id='$kategori', nama='$nama', harga='$harga', detail='$detail', ketersediaan_stok='$ketersediaan_stok' WHERE id=$id");
 
                         if($nama_file!=''){
                             if($image_size > 600000){
@@ -145,7 +147,7 @@
                                 else{
                                     move_uploaded_file($_FILES["foto"]["tmp_name"], $target_dir . $new_name);
 
-                                    $queryUpdate = mysqli_query($conn, "UPDATE produk SET foto='$new_name' WHERE id='$id'");
+                                    $queryUpdate = mysqli_query($con, "UPDATE produk SET foto='$new_name' WHERE id='$id'");
 
                                     if($queryUpdate){
             ?>
@@ -157,7 +159,7 @@
             <?php                            
                                     }
                                     else{
-                                        echo mysqli_error($conn);
+                                        echo mysqli_error($con);
                                     }
                                 }
                             }
@@ -165,7 +167,7 @@
                     }
                 }
                 if(isset($_POST['hapus'])){
-                    $queryHapus = mysqli_query($conn, "DELETE FROM produk WHERE id='$id'");
+                    $queryHapus = mysqli_query($con, "DELETE FROM produk WHERE id='$id'");
                     if($queryHapus){
             ?>
                         <div class="alert alert-primary mt-3" role="alert">
